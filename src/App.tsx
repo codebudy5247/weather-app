@@ -11,7 +11,6 @@ import {
 import WeatherDisplay from "./components/WeatherDisplay";
 import MapDisplay from "./components/MapDisplay";
 import { useState } from "react";
-import SearchHistory from "./components/SearchHistory";
 
 function App() {
   const [input, setInput] = useState({
@@ -80,7 +79,6 @@ function App() {
                 <Button type="submit" variant="contained" color="primary">
                   Submit
                 </Button>
-                <SearchHistory />
               </Box>
             </Box>
           </Grid>
