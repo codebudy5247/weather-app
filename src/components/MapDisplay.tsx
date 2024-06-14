@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MapContainer,
   Marker,
   Popup,
   TileLayer,
+  useMap,
   useMapEvents,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -32,6 +33,20 @@ const ClickableMap = ({
   return null;
 };
 
+const MapCenterHandler = ({
+  latitude,
+  longitude,
+}: {
+  latitude: number;
+  longitude: number;
+}) => {
+  const map = useMap();
+  useEffect(() => {
+    map.setView([latitude, longitude]);
+  }, [latitude, longitude, map]);
+  return null;
+};
+
 const MapDisplay = ({
   latitude,
   longitude,
@@ -41,7 +56,10 @@ const MapDisplay = ({
   const [clickedPosition, setClickedPosition] = useState<
     [number, number] | null
   >(null);
-  console.log({clickedPosition});
+
+  useEffect(() => {
+    setClickedPosition([latitude, longitude]);
+  }, [latitude, longitude]);
 
   return (
     <MapContainer
@@ -66,6 +84,7 @@ const MapDisplay = ({
         onMapClick={onMapClick}
         setClickedPosition={setClickedPosition}
       />
+      <MapCenterHandler latitude={latitude} longitude={longitude} />
     </MapContainer>
   );
 };
